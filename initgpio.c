@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define EXPORT "/export"
 #define GPIODIR "/sys/class/gpio"
@@ -34,21 +35,21 @@ void exportPin(char **i) {
     close(fd);
 }
 
-void setDirection(char **i, char d) {
+void setDirection(char **i, char **d) {
     snprintf(path, sizeof(path), "%s%s%s",GPIOPIN, *i, SUF_DIR);
     fd = open(path, O_WRONLY);
     if (fd == -1) {
         printf("Error opening /direction\n");
         exit(1);
     }
-    if (write(fd, *i, 3) != 3) {
+    if (write(fd, *d, 3) != 3) {
         printf("Error writing /direction\n");
         exit(1);
     }
     close(fd);
 }
 
-void setPinValue(char **i, char v) {
+void setPinValue(char **i, char *v) {
     snprintf(path, sizeof(path), "%s%s%s",GPIOPIN, *i, SUF_VAL);
     fd = open(path, O_WRONLY);
     if (fd == -1) {
