@@ -19,7 +19,7 @@ char path[33];
 int fd;
 
 void exportPin(char *i) {
-    snprintf(path, sizeof(path), "%s%s", GPIOPIN, EXPORT);     
+    snprintf(path, sizeof(path), "%s%s", GPIODIR, EXPORT);     
     fd = open(path, O_WRONLY);
 
     if (fd == -1) {
