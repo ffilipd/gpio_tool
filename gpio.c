@@ -70,6 +70,27 @@ void setPinValue(char *i, char *v) {
     printf("pin: %s value: %s\n", i, v);
     close(fd);
 }
+
+void readPin(char *i) {
+    
+    snprintf(path, sizeof(path), "%s%s%s",GPIOPIN, i, SUF_VAL);
+    fd = open(path, O_RDONLY);
+    char v;
+
+    if (fd == -1) {
+        printf("Error opening /value\n");
+        exit(1);
+    }
+    if (read(fd, v, 1) != 1) {
+        printf("Error writing /value\n");
+        exit(1);
+    }
+
+    printf("READ pin: %s value: %s\n", i, v);
+    close(fd);
+}
+
+
 int main(int argc, char *argv[]) {
     
     while ((++argv)[0]) {
